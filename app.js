@@ -6,14 +6,13 @@ const app = express();
 
 const notFoundMiddleware = require("./middlewares/notFoundMiddleware");
 const errorHandlerMiddleware = require("./middlewares/errorHandlingMiddleware");
+const sendEmail = require("./controllers/sendMail");
 
 app.get("/", (req, res) => {
 	res.send(`<h1>Send Emails</h1><a href="/send">send email</a>`);
 });
 
-app.get("/send", (req, res) => {
-	res.send("send email function");
-});
+app.get("/send", sendEmail);
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
