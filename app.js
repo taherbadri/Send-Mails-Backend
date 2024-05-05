@@ -4,9 +4,21 @@ require("express-async-errors");
 const express = require("express");
 const app = express();
 
+const notFoundMiddleware = require("./middlewares/notFoundMiddleware");
+const errorHandlerMiddleware = require("./middlewares/errorHandlingMiddleware");
+
 app.get("/", (req, res) => {
-	res.send("Send Emails");
+	res.send(`<h1>Send Emails</h1><a href="/send">send email</a>`);
 });
+
+app.get("/send", (req, res) => {
+	res.send("send email function");
+});
+
+app.use(notFoundMiddleware);
+app.use(errorHandlerMiddleware);
+
+app.use(express.json());
 
 const port = process.env.PORT || 5253;
 
